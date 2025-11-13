@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公众号日报</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .header .date {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .article-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .article-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+            border-color: #3498db;
+        }
+
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .article-title {
+            font-size: 19px;
+            font-weight: 600;
+            color: #2c3e50;
+            flex: 1;
+            margin-right: 15px;
+            line-height: 1.4;
+            transition: color 0.2s;
+        }
+
+        .article-card:hover .article-title {
+            color: #3498db;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            color: #7f8c8d;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #ecf0f1;
+            color: #555;
+            padding: 4px 12px;
+            border-radius: 14px;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .article-card:hover .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .info-section {
+            background: #fafafa;
+            padding: 14px 16px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+
+        .info-section.summary {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+
+        .article-card:hover .info-section.summary {
+            background: #bbdefb;
+        }
+
+        .info-section.benefit {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+        }
+
+        .article-card:hover .info-section.benefit {
+            background: #c8e6c9;
+        }
+
+        .info-section.action {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .article-card:hover .info-section.action {
+            background: #ffe0b2;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-label .emoji {
+            font-size: 16px;
+        }
+
+        .info-text {
+            color: #444;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .summary-paragraph {
+            margin-bottom: 10px;
+        }
+
+        .summary-paragraph:last-child {
+            margin-bottom: 0;
+        }
+
+        .summary-highlight {
+            background: linear-gradient(180deg, transparent 60%, #fff59d 60%);
+            padding: 2px 0;
+            font-weight: 500;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .read-more:hover {
+            color: #2980b9;
+            transform: translateX(4px);
+        }
+
+        .read-more::after {
+            content: "→";
+        }
+
+        @media (max-width: 768px) {
+            .article-card {
+                padding: 18px;
+            }
+
+            .article-title {
+                font-size: 17px;
+            }
+
+            .info-label {
+                font-size: 11px;
+            }
+
+            .info-text {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>📰 公众号日报</h1>
+            <div class="date">2025年11月13日 星期四</div>
+        </div>
+    </div>
+
+    <div class="container">
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">存储芯片超级周期持续演绎，如何看待？</div>
+    </div>
+    <div class="article-meta">
+        <span>⏰ 2025-11-12 08:01</span>
+        <span>📱 蹊涯学习室</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#存储芯片</span>
+        <span class="tag">#AI算力</span>
+        <span class="tag">#半导体周期</span>
+        <span class="tag">#HBM</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>文章摘要</span>
+        </div>
+        <div class="info-text">
+            <div class="summary-paragraph">
+                文章深入分析了存储芯片正在持续演绎的超级周期，强调AI是当前行业最大的变量和核心驱动力。作者指出，AI领域生态正在形成共振，算力竞争推向更高维度，且当前行业高景气度不存在泡沫。高频数据显示，DDR5和DDR4等存储产品价格持续上涨，需求旺盛主要源于AI服务器的大量需求。
+            </div>
+            <div class="summary-paragraph">
+                作者通过三星、SK海力士等原厂的涨价函和长期订单情况，以及HBM需求的几何级增长，论证了<span class="summary-highlight">此轮AI驱动的存储半导体周期将持续更长时间，涨价幅度可能超市场预期，供需短缺或将持续3-4年以上</span>。文章还提及被动元器件如钽电容也因AI服务器需求而涨价，并关注了安费诺、生益电子、伟测科技等相关公司的亮眼业绩。
+            </div>
+        </div>
+    </div>
+    <div class="info-section benefit">
+        <div class="info-label">
+            <span class="emoji">💡</span>
+            <span>阅读收益</span>
+        </div>
+        <div class="info-text">掌握AI驱动下存储芯片超级周期的持续逻辑及关键价格信号。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">持续关注HBM产能变化、存储厂商涨价情况，并跟踪AI算力链和相关被动元器件公司的业绩表现。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MjM5MTk5Mzk3MA==&mid=2449127493&idx=1&sn=91fd793980b3f567d110ebd21df55fef" class="read-more">阅读原文</a>
+    </div>
+</div>
+<div class="article-card">
+    <div class="article-header">
+        <div class="article-title">对AI泡沫、存储周期和市场风格的几点看法</div>
+    </div>
+    <div class="article-meta">
+        <span>⏰ 2025-11-11 22:16</span>
+        <span>📱 橙子不糊涂</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#AI泡沫</span>
+        <span class="tag">#存储芯片</span>
+        <span class="tag">#市场风格</span>
+        <span class="tag">#科技投资</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>文章摘要</span>
+        </div>
+        <div class="info-text">
+            <div class="summary-paragraph">
+                文章从AI泡沫、存储周期和市场风格三个维度，分享了作者对近期市场变化的看法。在AI泡沫问题上，作者援引高盛报告，认为当前AI热潮更接近1997-1998年的科技繁荣期而非泡沫破裂前夕，且与2000年互联网泡沫相比，当前科技巨头的资本开支与经营性现金流匹配度更高，显示出健康的基本面。
+            </div>
+            <div class="summary-paragraph">
+                作者强调<span class="summary-highlight">AI真正的生产力爆发阶段尚未到来但已临近，因此AI投资并非泡沫</span>。针对存储芯片，作者认为行业仍处早期阶段，全球涨价潮远未结束，今天的回调对夯实后期行情支撑有益。同时，文章指出当前市场风格偏向交易型，绩优公司短期受冷落，但当其具备性价比时将再次成为市场最优选。
+            </div>
+        </div>
+    </div>
+    <div class="info-section benefit">
+        <div class="info-label">
+            <span class="emoji">💡</span>
+            <span>阅读收益</span>
+        </div>
+        <div class="info-text">理解AI行业当前阶段的泡沫争论，以及存储周期的深层逻辑与市场风格的潜在切换信号。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">关注AI产业链长期机会，对存储芯片短期调整保持理性，并留意绩优科技股在回调后的配置价值。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzU1ODkyNzE0Mg==&mid=2247488322&idx=1&sn=e2189981298ba5981dd40da83ca58f1f" class="read-more">阅读原文</a>
+    </div>
+</div>
+<div class="article-card">
+    <div class="article-header">
+        <div class="article-title">一笔REITs爆赚37亿，打通AIDC“募投管退”资本闭环</div>
+    </div>
+    <div class="article-meta">
+        <span>⏰ 2025-11-12 18:06</span>
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#REITs</span>
+        <span class="tag">#数据中心</span>
+        <span class="tag">#润泽科技</span>
+        <span class="tag">#资产证券化</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>文章摘要</span>
+        </div>
+        <div class="info-text">
+            <div class="summary-paragraph">
+                文章聚焦润泽科技2025年三季度归母净利润暴增598%，高达38.22亿元的亮眼业绩，揭示其主要来源于将旗下A-18数据中心资产转让至“南方润泽科技数据中心REIT”所产生的37.56亿元投资收益。这笔交易不仅是全国首批数据中心REITs的成功案例，也以近6倍的资产增值率，为润泽科技带来了可观的现金流。
+            </div>
+            <div class="summary-paragraph">
+                作者深入分析，润泽科技通过此次REITs成功盘活了高投入、重资产的数据中心项目，有效缓解了公司在建项目资金缺口巨大和负债率较高的压力。这种“轻重资产分离”的运营模式，打通了数据中心“<span class="summary-highlight">募投管退”的资本闭环，为传统重资产数据中心行业提供了突破资本开支限制的新路径，实现了资产的高效循环利用</span>。
+            </div>
+        </div>
+    </div>
+    <div class="info-section benefit">
+        <div class="info-label">
+            <span class="emoji">💡</span>
+            <span>阅读收益</span>
+        </div>
+        <div class="info-text">理解数据中心行业通过REITs实现轻资产运营，盘活重资产的资本运作模式。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">关注数据中心REITs模式的推广及对相关公司财务结构和业务扩张的影响。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649992252&idx=1&sn=ca283de7dfa009fa9a39bf3831a671fb" class="read-more">阅读原文</a>
+    </div>
+</div>
+<div class="article-card">
+    <div class="article-header">
+        <div class="article-title">宝钢包装：错失并购，另辟蹊径</div>
+    </div>
+    <div class="article-meta">
+        <span>⏰ 2025-11-12 18:06</span>
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#宝钢包装</span>
+        <span class="tag">#金属包装</span>
+        <span class="tag">#行业并购</span>
+        <span class="tag">#市场格局</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>文章摘要</span>
+        </div>
+        <div class="info-text">
+            <div class="summary-paragraph">
+                文章分析了宝钢包装2025年前三季度的经营状况，公司营收增长6.83%，归母净利润增长11.97%，盈利能力显著优于收入增速，这主要得益于其持续提升精益管理质效和新建制罐项目的顺利投运。同时，文章强调金属包装行业以客户、资金和技术为核心壁垒，并指出行业已形成高度集中的竞争格局。
+            </div>
+            <div class="summary-paragraph">
+                文章重点指出，在奥瑞金成功私有化中粮包装后，金属包装行业形成了“<span class="summary-highlight">一超两强”的稳定新格局，宝钢包装尽管作为行业领导者之一，但其背后实际控制人中国宝武此前未能成功收购中粮包装，这促使宝钢包装需要在新的行业环境下另辟蹊径，寻找差异化的发展策略</span>。
+            </div>
+        </div>
+    </div>
+    <div class="info-section benefit">
+        <div class="info-label">
+            <span class="emoji">💡</span>
+            <span>阅读收益</span>
+        </div>
+        <div class="info-text">了解金属包装行业的竞争格局变化，以及龙头企业在并购失败后的战略考量。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">关注宝钢包装在行业格局重塑后的新战略部署及其对公司未来业绩的影响。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649992252&idx=2&sn=2106d804b7b40c0e4227e9b10f99aae7" class="read-more">阅读原文</a>
+    </div>
+</div>
+<div class="article-card">
+    <div class="article-header">
+        <div class="article-title">巴西 - 实用主义和中间派的堡垒</div>
+    </div>
+    <div class="article-meta">
+        <span>⏰ 2025-11-11 20:49</span>
+        <span>📱 培风客</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#巴西</span>
+        <span class="tag">#地缘政治</span>
+        <span class="tag">#新兴市场</span>
+        <span class="tag">#绿色再工业化</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>文章摘要</span>
+        </div>
+        <div class="info-text">
+            <div class="summary-paragraph">
+                文章深入探讨了巴西作为新兴市场的独特性，尤其强调其政治上坚固的中间派堡垒和实用主义特质。作者通过对比巴西与阿根廷、智利的历史和文化背景，指出巴西受葡萄牙分封制殖民影响，形成重商主义的地方寡头政治结构，不同于其他拉美国家的官僚体系。这种深厚的中间派传统使得巴西的政治决策更倾向于平衡各方利益，避免极端意识形态化。
+            </div>
+            <div class="summary-paragraph">
+                文章以比亚迪在巴西设厂为例，剖析了巴西在卢拉政府领导下面临的社会就业、宏观经济（高利率）及产业升级三重困境。作者认为<span class="summary-highlight">巴西选择与中国进行FDI（外国直接投资）合作，利用其清洁能源禀赋推进绿色再工业化，是在平衡就业、财政和产业依附困境下的“积极不结盟”策略</span>。这使得巴西在经济上从中国获取技术和市场，同时在外交上保持与中美两国关系的微妙平衡。
+            </div>
+        </div>
+    </div>
+    <div class="info-section benefit">
+        <div class="info-label">
+            <span class="emoji">💡</span>
+            <span>阅读收益</span>
+        </div>
+        <div class="info-text">深入理解巴西独特的政治文化、经济困境及在地缘政治中的实用主义平衡策略。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">关注巴西宏观经济政策走向、大宗商品价格变化，以及其与中国在清洁能源和产业升级方面的合作进展，评估对新兴市场投资的影响。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=Mzg4NzY3NzIwOA==&mid=2247496226&idx=1&sn=b8e54492f17b0c3cecfe8430b8304500" class="read-more">阅读原文</a>
+    </div>
+</div>
+        </div>
+</body>
+</html>
