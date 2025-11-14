@@ -2,7 +2,7 @@
   # 构建命令：运行 Python 脚本生成索引页
   command = "python3 generate_index.py"
 
-  # 发布目录：scr 文件夹
+  # 发布目录：src 文件夹
   publish = "src" 
 
   # 忽略构建（可选）
