@@ -3,7 +3,7 @@
   command = "python3 generate_index.py"
 
   # 发布目录：scr 文件夹
-  publish = "scr"
+  publish = "src" 
 
   # 忽略构建（可选）
   # ignore = "git diff --quiet HEAD^ HEAD ."
