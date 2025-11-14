@@ -33,3 +33,6 @@ wheels/
 # OS
 .DS_Store
 Thumbs.db
+
+# Claude Code temporary files
+*2025-11-14-caveat-the-messages-below-were-generated-by-the-u.txt
