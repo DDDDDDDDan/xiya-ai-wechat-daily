@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蹊涯AI：公众号日报</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .header .date {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .article-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .article-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+            border-color: #3498db;
+        }
+
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .article-title {
+            font-size: 19px;
+            font-weight: 600;
+            color: #2c3e50;
+            flex: 1;
+            margin-right: 15px;
+            line-height: 1.4;
+            transition: color 0.2s;
+        }
+
+        .article-card:hover .article-title {
+            color: #3498db;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            color: #7f8c8d;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #ecf0f1;
+            color: #555;
+            padding: 4px 12px;
+            border-radius: 14px;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .article-card:hover .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .info-section {
+            background: #fafafa;
+            padding: 14px 16px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+
+        .info-section.summary {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+
+        .article-card:hover .info-section.summary {
+            background: #bbdefb;
+        }
+
+        .info-section.benefit {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+        }
+
+        .article-card:hover .info-section.benefit {
+            background: #c8e6c9;
+        }
+
+        .info-section.action {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .article-card:hover .info-section.action {
+            background: #ffe0b2;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-label .emoji {
+            font-size: 16px;
+        }
+
+        .info-text {
+            color: #444;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .summary-paragraph {
+            margin-bottom: 10px;
+        }
+
+        .summary-paragraph:last-child {
+            margin-bottom: 0;
+        }
+
+        .summary-highlight {
+            background: linear-gradient(180deg, transparent 60%, #fff59d 60%);
+            padding: 2px 0;
+            font-weight: 500;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .read-more:hover {
+            color: #2980b9;
+            transform: translateX(4px);
+        }
+
+        .read-more::after {
+            content: "→";
+        }
+
+        @media (max-width: 768px) {
+            .article-card {
+                padding: 18px;
+            }
+
+            .article-title {
+                font-size: 17px;
+            }
+
+            .info-label {
+                font-size: 11px;
+            }
+
+            .info-text {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>📰 蹊涯AI：公众号日报</h1>
+            <div class="date">2025年11月14日 星期五</div>
+        </div>
+    </div>
+
+    <div class="container">
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">如何用AI团队替代10人工作组？</div>
+    </div>
+    <div class="article-meta">
+        <span>⏰ 2025-11-13 08:03</span>
+        <span>📱 蹊涯学习室</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#AIAgent</span>
+        <span class="tag">#智能体</span>
+        <span class="tag">#AI课程</span>
+        <span class="tag">#商业化</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>文章摘要</span>
+        </div>
+        <div class="info-text">
+            <div class="summary-paragraph">
+                文章深入介绍了《AI Agent实战：从0到1打造可盈利智能体团队》课程，旨在帮助学员构建AI员工团队、重构工作流并打造可交付盈利的AI产品。课程涵盖AI Agent核心原理、信息获取、知识铸造（RAG）、分析处理、任务执行、高级编排（多智能体协作）及价值变现七大模块。
+            </div>
+            <div class="summary-paragraph">
+                通过16个实战项目提供从低代码到私有化部署的全栈技术实践，其核心观点是：<span class="summary-highlight">通过掌握AI Agent的全链路构建与商业变现策略，个人和企业能够实现从0到1打造自动化业务引擎，并实现可盈利的AI产品落地</span>。
+            </div>
+        </div>
+    </div>
+    <div class="info-section benefit">
+        <div class="info-label">
+            <span class="emoji">💡</span>
+            <span>阅读收益</span>
+        </div>
+        <div class="info-text">系统性了解AI Agent的构建原理、实战应用及商业化路径，掌握打造自动化智能体团队的核心技能。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">评估AI Agent课程对个人或企业转型的价值，并探索将AI Agent技术应用于自身工作流程或产品开发的潜力。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MjM5MTk5Mzk3MA==&amp;mid=2449127507&amp;idx=1&amp;sn=75a20daa09951deeb68cc78dced381bc" class="read-more">阅读原文</a>
+    </div>
+</div>
+<div class="article-card">
+    <div class="article-header">
+        <div class="article-title">“模型商品化”+“微软AI战略”，信息量爆炸的一场访问（11月13日）</div>
+    </div>
+    <div class="article-meta">
+        <span>⏰ 2025-11-13 08:31</span>
+        <span>📱 180K</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#微软</span>
+        <span class="tag">#AIGC</span>
+        <span class="tag">#云战略</span>
+        <span class="tag">#模型商品化</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>文章摘要</span>
+        </div>
+        <div class="info-text">
+            <div class="summary-paragraph">
+                本文是对微软CEO萨提亚·纳德拉的深度访谈总结，他阐述了微软在AI时代的战略布局，强调云计算未来的利润增长点在于“长尾负载”而非单纯模型API调用，并预测模型将走向商品化。纳德拉认为，微软的竞争力在于其围绕模型的“脚手架”（应用程序与基础设施），以及其在训练和推理两端支持多种模型（包括OpenAI和MAI）的能力。
+            </div>
+            <div class="summary-paragraph">
+                文章还深入探讨了微软在AI基础设施建设、自研芯片、主权AI及全球信任构建方面的考量，指出未来AI将是资本与知识密集型业务，其核心观点是：<span class="summary-highlight">在模型日益商品化的趋势下，微软的AI战略聚焦于通过强大的云基础设施和应用“脚手架”来捕获长期价值，并保持多模型（包括自研MAI与OpenAI）支持的开放性和竞争力</span>。
+            </div>
+        </div>
+    </div>
+    <div class="info-section benefit">
+        <div class="info-label">
+            <span class="emoji">💡</span>
+            <span>阅读收益</span>
+        </div>
+        <div class="info-text">全面理解微软CEO对AI技术发展、商业模式演变、云基础设施建设及全球地缘政治影响下的AI战略部署。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">关注大型科技公司在AI时代的战略转向，评估模型层与应用基础设施层的投资价值，并注意AI领域的国际竞争与合作态势。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzkwODQzMjcwOA==&amp;mid=2247488436&amp;idx=1&amp;sn=b670973956ff84d68474a376aa57e496" class="read-more">阅读原文</a>
+    </div>
+</div>
+<div class="article-card">
+    <div class="article-header">
+        <div class="article-title">和而泰：国产GPU、军工芯片，“我全都要”</div>
+    </div>
+    <div class="article-meta">
+        <span>⏰ 2025-11-13 18:05</span>
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#和而泰</span>
+        <span class="tag">#摩尔线程</span>
+        <span class="tag">#GPU</span>
+        <span class="tag">#影子股</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>文章摘要</span>
+        </div>
+        <div class="info-text">
+            <div class="summary-paragraph">
+                文章分析了和而泰（002402.SZ）股价在国产GPU独角兽摩尔线程“闪电过会”后，短期内累计涨幅超140%、市值激增逾300亿的现象。作者指出，此次资本狂欢主要源于市场将其视为摩尔线程的“影子股”，而非公司自身基本面的显著改善。
+            </div>
+            <div class="summary-paragraph">
+                文章旨在探讨这波上涨究竟是一时的概念炒作，还是真正的价值重估，其核心观点是：<span class="summary-highlight">和而泰的股价飙升主要受摩尔线程IPO利好引发的市场概念炒作驱动，其背后是否存在坚实的基本面支撑仍是投资者需要警惕的风险</span>。
+            </div>
+        </div>
+    </div>
+    <div class="info-section benefit">
+        <div class="info-label">
+            <span class="emoji">💡</span>
+            <span>阅读收益</span>
+        </div>
+        <div class="info-text">了解资本市场中“影子股”现象及其引发的股价异动逻辑，提升辨别概念炒作与真实价值的能力。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">面对概念股股价异常波动时，应深入分析公司核心业务与实际业绩，避免盲目追逐短期热点。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&amp;mid=2649992278&amp;idx=1&amp;sn=6ec72d788e643276113f23ea37bab1fa" class="read-more">阅读原文</a>
+    </div>
+</div>
+<div class="article-card">
+    <div class="article-header">
+        <div class="article-title">医保目录首设“双通道”，创新药反攻号或将奏响？</div>
+    </div>
+    <div class="article-meta">
+        <span>⏰ 2025-11-13 18:05</span>
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#创新药</span>
+        <span class="tag">#医保</span>
+        <span class="tag">#双通道</span>
+        <span class="tag">#医药行业</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>文章摘要</span>
+        </div>
+        <div class="info-text">
+            <div class="summary-paragraph">
+                国家医保谈判引入“双目录”体系，首次设立商保创新药目录，旨在通过医保与商保结合，优化高价创新药的支付能力和市场空间。该机制有望突破罕见病用药和高价值创新药的销售瓶颈，并加速其市场放量。
+            </div>
+            <div class="summary-paragraph">
+                文章进一步分析指出，除了医保政策利好，创新药行业还将受益于BD出海持续突破、AI+制药赋能研发以及外部融资环境改善等多重结构性机遇，其核心观点是：<span class="summary-highlight">医保“双目录”体系落地，叠加BD出海、AI制药和融资环境改善，共同构成创新药行业增长的强大驱动力，预示着创新药反攻号角或将奏响</span>。
+            </div>
+        </div>
+    </div>
+    <div class="info-section benefit">
+        <div class="info-label">
+            <span class="emoji">💡</span>
+            <span>阅读收益</span>
+        </div>
+        <div class="info-text">全面理解中国创新药行业政策支持、多重结构性机遇及未来增长的多元驱动因素。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">关注创新药ETF或相关标的，把握医保政策改革和行业结构性机遇带来的投资机会。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&amp;mid=2649992278&amp;idx=2&amp;sn=e70a6b66aac56637b3f7374256e24ae2" class="read-more">阅读原文</a>
+    </div>
+</div>
+<div class="article-card">
+    <div class="article-header">
+        <div class="article-title">茶花股份的“掏空游戏”：旧业亏损新业失血，股东边跑路边数钱</div>
+    </div>
+    <div class="article-meta">
+        <span>⏰ 2025-11-13 18:05</span>
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#茶花股份</span>
+        <span class="tag">#资本运作</span>
+        <span class="tag">#公司治理</span>
+        <span class="tag">#股权减持</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>文章摘要</span>
+        </div>
+        <div class="info-text">
+            <div class="summary-paragraph">
+                文章深度剖析茶花股份（603615.SH）的“掏空游戏”，指出其传统塑料主业持续困境，产能利用率极低并连续亏损。公司试图跨界转型半导体分销，新业务虽带来收入增长却伴随巨大的现金流压力。更严重的是，实控人陈氏家族自上市以来通过减持和协议转让累计套现近11.8亿元。
+            </div>
+            <div class="summary-paragraph">
+                部分受让方迅速质押或计划减持，使得市场对其资本运作和治理问题高度关注，其核心观点是：<span class="summary-highlight">茶花股份在核心业务低迷、转型前景不明朗之际，实控人家族却通过频繁大额减持持续套现，而新业务带来的收入增长并未缓解其现金流压力，公司存在被“掏空”的风险</span>。
+            </div>
+        </div>
+    </div>
+    <div class="info-section benefit">
+        <div class="info-label">
+            <span class="emoji">💡</span>
+            <span>阅读收益</span>
+        </div>
+        <div class="info-text">识别上市公司在经营困境、业务转型风险和实控人密集减持等多重负面信号下的“掏空”风险。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">警惕公司基本面与股权结构异常变化、现金流紧张且股东大幅减持的上市公司，深入调查其资本运作动机。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&amp;mid=2649992278&amp;idx=3&amp;sn=4f01baf76d30849a80c6cb9301342ecc" class="read-more">阅读原文</a>
+    </div>
+</div>
+        </div>
+</body>
+</html>
