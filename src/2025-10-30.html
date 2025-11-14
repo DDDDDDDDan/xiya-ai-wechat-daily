@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蹊涯AI：公众号日报</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .header .date {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .article-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .article-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+            border-color: #3498db;
+        }
+
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .article-title {
+            font-size: 19px;
+            font-weight: 600;
+            color: #2c3e50;
+            flex: 1;
+            margin-right: 15px;
+            line-height: 1.4;
+            transition: color 0.2s;
+        }
+
+        .article-card:hover .article-title {
+            color: #3498db;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            color: #7f8c8d;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #ecf0f1;
+            color: #555;
+            padding: 4px 12px;
+            border-radius: 14px;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .article-card:hover .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .info-section {
+            background: #fafafa;
+            padding: 14px 16px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+
+        .info-section.summary {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+
+        .article-card:hover .info-section.summary {
+            background: #bbdefb;
+        }
+
+        .info-section.action {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .article-card:hover .info-section.action {
+            background: #ffe0b2;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-label .emoji {
+            font-size: 16px;
+        }
+
+        .info-text {
+            color: #444;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .read-more:hover {
+            color: #2980b9;
+            transform: translateX(4px);
+        }
+
+        .read-more::after {
+            content: "→";
+        }
+
+        @media (max-width: 768px) {
+            .article-card {
+                padding: 18px;
+            }
+
+            .article-title {
+                font-size: 17px;
+            }
+
+            .info-label {
+                font-size: 11px;
+            }
+
+            .info-text {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>📰 蹊涯AI：公众号日报</h1>
+            <div class="date">2025年10月30日 星期四</div>
+        </div>
+    </div>
+
+    <div class="container">
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">看点来了!老登小登两大龙头,业绩同时暴雷~</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 大佳的投资笔记</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">在宏观利好与科技股刺激下,市场指数大涨但个股分化,茅台与新易盛Q3业绩均不及预期,揭示"老登"与"小登"资产的业绩挑战,并引发对TMT板块高抱团的关注。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[风险] 警惕公募基金在TMT板块极端抱团可能带来的瓦解风险,关注业绩不及预期公司的市场消化情况。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzI4MDMyNDIxMQ==&mid=2247505268&idx=1&sn=ecec9736a629633773fb3964b426f7cc" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">价值投资是"人找股",主题投资是"股找人"</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 思想钢印</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">文章通过"快思考"与"慢思考"的框架,阐述了价值投资与主题投资在思维模式上的本质区别,强调主题投资更侧重于研究社会传播规律而非经济价值规律。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 反思自身投资模式,避免在选股过程中将价值投资误导为短期主题炒作,关注投资逻辑的内在一致性。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzA5MTk5OTY4Mw==&mid=2649661628&idx=1&sn=bb845d69ae7d1c4b907335c089064b00" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">联储有鹰派发言的理由,但随时间推移我觉得它还会是鸽派</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 培风客</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">尽管美联储此次会议言论偏鹰,使市场叙事从"经济不错+利率走低"转为"经济不错+利率反弹",但作者认为基于失业率(需求侧因素)和关税对通胀影响的暂时性,联储未来仍将回归鸽派立场,12月仍可能降息。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 密切关注美国就业数据及关税政策变化,判断美联储货币政策转向的潜在时点和对全球资产价格的影响。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=Mzg4NzY3NzIwOA==&mid=2247496174&idx=1&sn=61131f5596a88509a2370caf2b7ce02d" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">只是时间问题</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 调研纪要</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#AI</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">英伟达GTC大会确认AI算力爆发式增长,M9材料和HVLP4铜箔需求上修,预计供需缺口扩大,加工费进入涨价周期,高端PCB产业链将持续受益。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 重点关注HVLP4铜箔、M9电子布以及相关PCB厂商,把握AI算力产业链上游材料涨价和需求爆发的机会。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzkwMjA4NTUyMg==&mid=2247551266&idx=1&sn=a81b7f5f76341ff12e88a14a6ac59e68" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">"富可敌国"</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 调研纪要</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#存储芯片</span><span class="tag">#AI</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">英伟达市值突破5万亿美元,Blackwell和Rubin芯片需求强劲,预计到2026年底总出货量达2000万颗,销售额超5000亿美元,显示AI计算平台巨大潜力,且外资行普遍认为其估值仍合理。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 关注英伟达及其AI生态伙伴的长期成长性,尤其是在6G、量子计算、自动驾驶等新应用领域的拓展。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzkwMjA4NTUyMg==&mid=2247551266&idx=2&sn=cc326f2ef4664631f91a69c6ab7ff7a7" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">"超级逻辑"确认:聊聊江波龙、工业富联、新易盛的3季报</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 橙子不糊涂</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">江波龙Q3业绩大超预期,印证存储"超级逻辑";工业富联受益英伟达上调业绩预期,有望开启新市值空间;新易盛业绩虽低于预期,但归因于客户节奏问题,市场或将很快"原谅"。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 把握存储芯片行业景气周期,关注江波龙等相关龙头企业的业绩持续释放,并留意AI服务器代工企业工业富联的长期增量。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzU1ODkyNzE0Mg==&mid=2247488180&idx=1&sn=62fb5ea76ddbf2f3275a48bfe5b9bdd1" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">营收猛增、利润失速、现金恶化!英维克:成长阵痛,还是危机前兆?</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#AI</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">AI液冷龙头英维克Q3营收大增但利润增速显著放缓且经营现金流恶化,主因毛利率下降、原材料成本上涨及大规模扩张投入,市场对其业绩表现存在分歧。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 关注英维克在液冷行业高速发展期的扩张成果,评估其毛利率和现金流能否在未来实现改善,以判断是短期成长阵痛还是长期盈利能力问题。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991817&idx=4&sn=4b1e9799a3c6d4355c198ec4950e2161" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">第三季度利润同比大增58%!金发科技:化工龙头逆势跃升,掘金万亿新材料高成长赛道</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#AI</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">金发科技Q3利润同比大增58%,受益于产品结构优化、产业链协同及原材料成本下降,公司在新材料领域(新能源、机器人、AI服务器)积极布局,驱动业绩逆势增长。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 关注金发科技在化工新材料领域的创新布局和产能释放,尤其是其在新能源汽车和AI服务器等高增长赛道的应用进展。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991817&idx=1&sn=04a1ff472e1ce6dda75665b12cc1de26" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">营收同比微增,利润历史新高,海正药业的三季报怎么看?</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">海正药业Q3扣非净利润创历史新高,得益于主业盈利能力持续增强、毛利率提升、费用率下降及向高毛利制剂和动物药业务聚焦的战略调整。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 关注海正药业创新药研发管线进展及在合成生物、医美等新兴领域的探索,评估其长期转型成果。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991817&idx=2&sn=92993ed99b6e2f2ce1ae144ea08a2708" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">盐湖股份:俄乌冲突受益股?</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">盐湖股份Q3单季盈利近20亿,同比大增114%,远超上半年增速,主要受益于其在氯化钾市场近8成的国内份额,以及可能受到国际地缘政治对钾肥供应的影响。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 关注全球钾肥市场的供需变化及地缘政治对价格的影响,评估盐湖股份作为行业龙头的持续受益空间。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991817&idx=3&sn=728c5eab83c7a430ca0992176b782ac0" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">泡泡玛特业绩暴增股价却崩了!新消费高增长神话破灭后的价值重估与龙头破局</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">泡泡玛特Q3业绩暴增但股价暴跌,反映市场对高估值下增长可持续性的担忧以及新消费行业面临的共同困境,即资本对商业模式的重新审视。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[风险] 警惕新消费板块高估值带来的获利了结压力和增长焦虑,评估企业出海与品牌升维能否有效破局。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991817&idx=5&sn=2f136ad2fc7d57a4ceca3f94f73d391f" class="read-more">阅读原文</a>
+    </div>
+</div>
+    </div>
+</body>
+</html>

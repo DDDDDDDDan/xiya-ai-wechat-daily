@@ -1,0 +1,10 @@
+# 核心依赖（生成脚本）
+# 本项目生成脚本仅使用 Python 标准库，无需额外依赖
+# Python 3.6+ 即可运行
+
+# Supabase 集成（可选）
+supabase==2.3.0
+python-dotenv==1.0.0
+
+# 如果需要在本地启动 HTTP 服务器预览，Python 自带：
+# python -m http.server 8000
