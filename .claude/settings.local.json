@@ -9,7 +9,12 @@
       "mcp__github__get_me",
       "mcp__github__create_repository",
       "Bash(git remote set-url:*)",
-      "mcp__github__get_file_contents"
+      "mcp__github__get_file_contents",
+      "Bash(git commit:*)",
+      "Bash(for:*)",
+      "Bash(do powershell -Command \"(Get-Content \"\"$file\"\") -replace ''https://github.com/DDDDDDDDan/xiya-ai-wechat-daily/blob/main/%E8%B9%8A%E6%B6%AF%E5%AD%A6%E4%B9%A0%E5%AE%A4%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg'', ''https://github.com/DDDDDDDDan/xiya-ai-wechat-daily/blob/main/%E8%B9%8A%E6%B6%AF%E5%AD%A6%E4%B9%A0%E5%AE%A4%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg?raw=true'' | Set-Content \"\"$file\"\"\")",
+      "Bash(done:*)",
+      "Bash(do sed:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
