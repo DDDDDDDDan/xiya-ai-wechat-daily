@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蹊涯AI：公众号日报</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .header .date {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .article-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .article-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+            border-color: #3498db;
+        }
+
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .article-title {
+            font-size: 19px;
+            font-weight: 600;
+            color: #2c3e50;
+            flex: 1;
+            margin-right: 15px;
+            line-height: 1.4;
+            transition: color 0.2s;
+        }
+
+        .article-card:hover .article-title {
+            color: #3498db;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            color: #7f8c8d;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #ecf0f1;
+            color: #555;
+            padding: 4px 12px;
+            border-radius: 14px;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .article-card:hover .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .info-section {
+            background: #fafafa;
+            padding: 14px 16px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+
+        .info-section.summary {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+
+        .article-card:hover .info-section.summary {
+            background: #bbdefb;
+        }
+
+        .info-section.action {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .article-card:hover .info-section.action {
+            background: #ffe0b2;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-label .emoji {
+            font-size: 16px;
+        }
+
+        .info-text {
+            color: #444;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .read-more:hover {
+            color: #2980b9;
+            transform: translateX(4px);
+        }
+
+        .read-more::after {
+            content: "→";
+        }
+
+        @media (max-width: 768px) {
+            .article-card {
+                padding: 18px;
+            }
+
+            .article-title {
+                font-size: 17px;
+            }
+
+            .info-label {
+                font-size: 11px;
+            }
+
+            .info-text {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>📰 蹊涯AI：公众号日报</h1>
+            <div class="date">2025年11月10日 星期一</div>
+        </div>
+    </div>
+
+    <div class="container">
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">算力上天</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 调研纪要</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#AI</span><span class="tag">#数据中心</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">太空算力中心正从概念走向现实,谷歌、SpaceX等巨头纷纷布局,旨在解决地面AI数据中心的电力和散热瓶颈,为商业航天和AI发展开辟新路径,中美已启动空间算力竞争。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 关注太空太阳能电池(钙钛矿/砷化镓)、激光通信及太空AI芯片等核心技术环节的产业链投资机会,这些是未来太空信息基建的关键卡点。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzkwMjA4NTUyMg==&mid=2247551370&idx=1&sn=a79331ad7b25ac456441a7d442a93dfa" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">周末发酵:存储"沸腾"闪迪暴涨+15%、光模块和PCB产业链提速…</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 橙子不糊涂</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#存储芯片</span><span class="tag">#AI</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">存储芯片行业已从纯题材走向产业现实,闪迪大涨预示行业景气度上升;光模块与PCB作为AI硬件上游,在硅光技术和巨头扩产带动下,细分方向涌现投资机会。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 重点关注存储芯片、光模块上游(硅光)、PCB(特别是钻针新进展)等AI硬件相关产业链中具备强逻辑和确定性增长的公司。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzU1ODkyNzE0Mg==&mid=2247488285&idx=1&sn=605bdfc84350bd65049182b32e9f0525" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">消费退潮时,看懂"换季"的人已经赢了</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 思想钢印</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#AI</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">在整体消费疲软背景下,电影市场趋向"爆款经济",但95后00后会员付费意识增强,以及早期短信增值业务对AI应用商业模式的启示,揭示了结构性消费机会和代际变迁的力量。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 关注年轻群体新消费习惯带来的在线娱乐、付费会员及未来AI应用领域的机会,对传统、非必需型线下消费的持续下行保持警惕。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzA5MTk5OTY4Mw==&mid=2649661727&idx=1&sn=def15110e564925b18c2b9b2977fdf05" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">那么多牛股,为什么要做一个"困境股池"?</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 思想钢印</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">针对消费行业困境股,通过建立"困境股池"进行长期跟踪,旨在挖掘具有困境反转潜力的龙头或细分龙头公司,以优势赔率应对投资不确定性。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 识别消费行业中具备退市风险小、管理层有资源且跌幅超50%的龙头公司,运用"赔率优先、提高胜率"的策略进行长线布局。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzA5MTk5OTY4Mw==&mid=2649661727&idx=2&sn=d640ee2b4cde39b9f37d4c0d1eb1db48" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">涨价走到哪了?</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 调研纪要</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">储能需求强劲恢复带动锂电材料产业链全面进入涨价周期,磷酸铁锂、六氟磷酸锂、电解液等关键材料价格显著上涨,头部厂商纷纷锁定供货,上游资源品定价权强化。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 关注具备上游磷矿资源优势、六氟磷酸锂/VC精细化工产能及电解液/磷酸铁锂头部企业的盈利修复与扩产潜力,把握储能容量电价落地带来的行业性经济性提升。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzkwMjA4NTUyMg==&mid=2247551370&idx=2&sn=c6812da496e02e029c91af1c73f39799" class="read-more">阅读原文</a>
+    </div>
+</div>
+    </div>
+</body>
+</html>

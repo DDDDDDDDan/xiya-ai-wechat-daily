@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蹊涯AI：公众号日报</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .header .date {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .article-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .article-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+            border-color: #3498db;
+        }
+
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .article-title {
+            font-size: 19px;
+            font-weight: 600;
+            color: #2c3e50;
+            flex: 1;
+            margin-right: 15px;
+            line-height: 1.4;
+            transition: color 0.2s;
+        }
+
+        .article-card:hover .article-title {
+            color: #3498db;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            color: #7f8c8d;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #ecf0f1;
+            color: #555;
+            padding: 4px 12px;
+            border-radius: 14px;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .article-card:hover .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .info-section {
+            background: #fafafa;
+            padding: 14px 16px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+
+        .info-section.summary {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+
+        .article-card:hover .info-section.summary {
+            background: #bbdefb;
+        }
+
+        .info-section.action {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .article-card:hover .info-section.action {
+            background: #ffe0b2;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-label .emoji {
+            font-size: 16px;
+        }
+
+        .info-text {
+            color: #444;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .read-more:hover {
+            color: #2980b9;
+            transform: translateX(4px);
+        }
+
+        .read-more::after {
+            content: "→";
+        }
+
+        @media (max-width: 768px) {
+            .article-card {
+                padding: 18px;
+            }
+
+            .article-title {
+                font-size: 17px;
+            }
+
+            .info-label {
+                font-size: 11px;
+            }
+
+            .info-text {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>📰 蹊涯AI：公众号日报</h1>
+            <div class="date">2025年10月24日 星期五</div>
+        </div>
+    </div>
+
+    <div class="container">
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">对比四中全会公告</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 培风客</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">最新四中全会公告对比五年前有显著变化,对过去五年经济发展总结更为谨慎,对未来风险挑战的警惕性提高,并将"以经济建设为中心"重新置于重要位置,同时强调科技与安全。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 深入理解国家政策重心转向"以经济建设为中心"的具体部署,关注科技自立自强和国家安全在未来发展中的作用。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=Mzg4NzY3NzIwOA==&mid=2247496140&idx=1&sn=a282b64e88481be0e702625c8a08e0f7" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">黄金大跌,下一轮行情盯紧央行动作</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">黄金经历历史性暴跌后,市场关注焦点转向全球央行购金力度及"去美元化"趋势,同时提示铝价未来或有50%-60%的上涨潜力。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 密切关注全球央行黄金储备变化,将其作为黄金市场下一轮行情的关键信号;[机会] 考虑铝作为长期供需紧张的潜在投资标的。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991515&idx=2&sn=ddc10d787d3fa0a91c2d3d80b836f28e" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">点火!市值蒸发3400亿后,"安防老炮"业绩重回双位数增长</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#AI</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">一家曾市值蒸发3400亿的"安防老炮"科技巨头,在AI浪潮下成功转型,业绩重回双位数增长,展现出在激进AI竞争中适应与复苏的能力。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 关注传统科技巨头在AI时代转型成功的案例,挖掘其新业务增长点及潜在价值。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991515&idx=1&sn=d9033dfa1cd5cc740107f2d78aef2249" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">暴跌!乖宝宠物怎么了?</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">乖宝宠物发布不及预期的三季报后股价暴跌,核心原因是公司三季度单季度净利润增速首次降至个位数,市场对其业绩增长放缓表现担忧。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[风险] 警惕宠物行业头部公司业绩增长放缓的信号,关注其盈利能力和市场预期变化。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991515&idx=3&sn=19442f77ca9db9991a7bcae18a23869a" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">出海先锋,海兴电力吃到肉了!</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">海兴电力作为智能电表出海龙头,通过本地化经营策略和从产品到解决方案的转型,深耕海外市场并在新能源领域取得进展,展现出轻资产、高现金流的稳健态势。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 关注具备国际化布局和技术转型能力的出海型企业,尤其是其高毛利解决方案业务的增长潜力。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991515&idx=4&sn=96c9e89878840defa4448c205a4527ba" class="read-more">阅读原文</a>
+    </div>
+</div>
+    </div>
+</body>
+</html>

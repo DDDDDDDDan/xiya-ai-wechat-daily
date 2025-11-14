@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蹊涯AI：公众号日报</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .header .date {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .article-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .article-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+            border-color: #3498db;
+        }
+
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .article-title {
+            font-size: 19px;
+            font-weight: 600;
+            color: #2c3e50;
+            flex: 1;
+            margin-right: 15px;
+            line-height: 1.4;
+            transition: color 0.2s;
+        }
+
+        .article-card:hover .article-title {
+            color: #3498db;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            color: #7f8c8d;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #ecf0f1;
+            color: #555;
+            padding: 4px 12px;
+            border-radius: 14px;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .article-card:hover .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .info-section {
+            background: #fafafa;
+            padding: 14px 16px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+
+        .info-section.summary {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+
+        .article-card:hover .info-section.summary {
+            background: #bbdefb;
+        }
+
+        .info-section.action {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .article-card:hover .info-section.action {
+            background: #ffe0b2;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-label .emoji {
+            font-size: 16px;
+        }
+
+        .info-text {
+            color: #444;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .read-more:hover {
+            color: #2980b9;
+            transform: translateX(4px);
+        }
+
+        .read-more::after {
+            content: "→";
+        }
+
+        @media (max-width: 768px) {
+            .article-card {
+                padding: 18px;
+            }
+
+            .article-title {
+                font-size: 17px;
+            }
+
+            .info-label {
+                font-size: 11px;
+            }
+
+            .info-text {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>📰 蹊涯AI：公众号日报</h1>
+            <div class="date">2025年11月3日 星期一</div>
+        </div>
+    </div>
+
+    <div class="container">
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">暴增的6700亿杠杆资金,都到哪里去了?</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 大佳的投资笔记</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">公募基金和杠杆资金在TMT行业高度抱团,杠杆资金超6700亿流入TMT,可能放大抱团股风险,但新规将加速抱团瓦解,市场或更均衡。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[风险] 警惕TMT行业因杠杆资金和公募抱团瓦解带来的局部调整风险;[跟进] 关注业绩比较基准新规对市场风格均衡化的影响。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzI4MDMyNDIxMQ==&mid=2247505304&idx=1&sn=87457ff437160a091d5eddcbeee9fdba" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">周末热议</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 调研纪要</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#AI</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">中美会晤好于预期且十五五规划强调科技,但市场对AI应用方向不明确,认为市场低估APEC会议的战略意义和"反内卷"政策对关键产业链的"稀土化"影响,看好AI应用、有色等新景气方向。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 密切关注十五五规划下AI应用、电源、储能、有色等"新景气"和"反内卷"政策受益板块,并留意散户情绪的反向指标作用。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzkwMjA4NTUyMg==&mid=2247551286&idx=1&sn=826e8bc34aef08c44b823df17c13dab5" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">黄金税收政策调整解读</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 调研纪要</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">财政部、税务总局调整黄金税收政策,旨在不鼓励实物黄金投资,鼓励线上投资和实体用金需求,同时避免套利,可能导致投资金条零售价上涨,场内外价差扩大,并增加黄金期货市场流动性。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[风险] 警惕实物黄金投资成本增加的风险;[机会] 关注黄金ETF、期货等线上黄金投资渠道的资金流入机会。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzkwMjA4NTUyMg==&mid=2247551286&idx=2&sn=032990680f0a600fd2dfedb2589c1518" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">那么多牛股,为什么要做一个"困境股池"?</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 思想钢印</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">作者推出"困境股池"以寻找消费行业中的困境反转机会,选股标准包括消费行业、龙头地位及股价跌幅,旨在通过优势赔率提升长期收益。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 关注消费行业中满足"困境股池"标准的龙头企业,寻找困境反转的投资机会。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzA5MTk5OTY4Mw==&mid=2649661658&idx=2&sn=2cc4408bcd271f78ee0c0bc0e12359f0" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">周末发酵:白宫版中美协议、Q3科技仓位40%+、一些关注点…</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 橙子不糊涂</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#存储芯片</span><span class="tag">#AI</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">中美协议缓和短期不确定性,而主动基金科技仓位超40%并非"拥挤"见顶信号,应关注AI产业趋势、估值及政策导向,认为科技配比仍低,未来有大市值科技公司发展空间,存储、光芯片、PCB等是关注方向。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 坚定看好AI科技的长期趋势,关注存储、光芯片、PCB等细分领域的机会,利用短期波动进行布局。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzU1ODkyNzE0Mg==&mid=2247488252&idx=1&sn=a98f16ddcdea892a40dac466c61d18c5" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">电力自动化龙头:蛰伏与进击!</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">在"双碳"目标和新型电力系统建设的驱动下,电力设备行业迎来历史性发展机遇,新能源装机、特高压建设和智能电网技术渗透为电力自动化龙头企业带来价值重估空间。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 关注受益于新能源装机、特高压建设和智能电网发展的电力自动化龙头企业的投资机会。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991901&idx=2&sn=177c76b2235966c61acacb5e05b2d29d" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">海上风电正成新蓝海,这些基金已重仓布局!</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">海上风电因其高效率、不占土地资源等优势,在机组大型化和"十四五"规划目标驱动下正成为新的高景气赛道,国内装机量爆发式增长,并有多只基金已重仓布局。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 关注海上风电产业链的投资机会,特别是具备出海能力和技术优势的企业,并参考重仓风电的基金配置。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991901&idx=3&sn=3e491cf818914224b7cb6a9f2cf1d879" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">再鼎,翻篇</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 阿基米德Biotech</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">再鼎医药核心管线Zoci(SCLC治疗)展现出卓越疗效与安全性,开发速度全球领先,有望跻身SCLC新型标准治疗之列,标志着公司从"license-in专家"向"全球管线推进者"的战略转型。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 关注再鼎医药核心管线Zoci的临床进展和未来商业化潜力,评估其战略转型对长期估值的提升作用。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=Mzk0MzEzNjg4NQ==&mid=2247491815&idx=1&sn=19881547980fa2df79b52c8e6ce54410" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">外资为什么要集体做空泡泡玛特?</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 思想钢印</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">外资做空泡泡玛特是基于对其IP模式可能重蹈30年前"Beanie Babies"投机泡沫覆辙的担忧,但文章指出泡泡玛特拥有全产业链、多维情绪符号体系和本土市场优势,与历史泡沫有本质区别。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 关注泡泡玛特IP运营模式与外资做空逻辑的长期博弈,尤其关注其多元IP生态和渠道优势的持续性。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzA5MTk5OTY4Mw==&mid=2649661658&idx=1&sn=8405550dd2929ddb9d7495515e3be5a3" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">专注宠物卫护30载,它能靠宠物食品构建起第二增长曲线?</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">在高速增长的宠物经济中,一家中国宠物卫生护理用品公司正凭借核心优势,尝试跨界进入宠物食品领域,以构建第二增长曲线。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 关注宠物卫生用品公司向宠物食品领域拓展的战略布局及市场反馈,评估其跨界整合的成功率。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991901&idx=1&sn=879339e077e39be76a4b27f2257cb3b4" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">养老金三季度持仓曝光,新进这些个股!</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">养老基金三季度持仓偏爱机械设备、基础化工、医药生物、电子等行业龙头及优质蓝筹股,看重稳定盈利和高成长性,且增持方向多为成长题材,体现长期价值投资风格。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 关注养老基金重仓和新进的行业龙头和成长题材个股,作为长期价值投资的参考标的。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991901&idx=4&sn=f1aab0c152059b9b9f378a68ee726c89" class="read-more">阅读原文</a>
+    </div>
+</div>
+    </div>
+</body>
+</html>

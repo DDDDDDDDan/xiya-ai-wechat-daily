@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蹊涯AI：公众号日报</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .header .date {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .article-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .article-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+            border-color: #3498db;
+        }
+
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .article-title {
+            font-size: 19px;
+            font-weight: 600;
+            color: #2c3e50;
+            flex: 1;
+            margin-right: 15px;
+            line-height: 1.4;
+            transition: color 0.2s;
+        }
+
+        .article-card:hover .article-title {
+            color: #3498db;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            color: #7f8c8d;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #ecf0f1;
+            color: #555;
+            padding: 4px 12px;
+            border-radius: 14px;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .article-card:hover .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .info-section {
+            background: #fafafa;
+            padding: 14px 16px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+
+        .info-section.summary {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+
+        .article-card:hover .info-section.summary {
+            background: #bbdefb;
+        }
+
+        .info-section.action {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .article-card:hover .info-section.action {
+            background: #ffe0b2;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-label .emoji {
+            font-size: 16px;
+        }
+
+        .info-text {
+            color: #444;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .read-more:hover {
+            color: #2980b9;
+            transform: translateX(4px);
+        }
+
+        .read-more::after {
+            content: "→";
+        }
+
+        @media (max-width: 768px) {
+            .article-card {
+                padding: 18px;
+            }
+
+            .article-title {
+                font-size: 17px;
+            }
+
+            .info-label {
+                font-size: 11px;
+            }
+
+            .info-text {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>📰 蹊涯AI：公众号日报</h1>
+            <div class="date">2025年11月7日 星期五</div>
+        </div>
+    </div>
+
+    <div class="container">
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">你看不上的外卖骑手,很可能是城市里的"准中产"</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">外卖骑手月收入突破7000元,美团率先推出50%社保补贴,通过"劳动三分法"解决零工就业保障难题,助力骑手跻身"准中产"。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 关注新就业形态下平台企业如何完善社会保障体系,及其对劳动力市场和消费能力的影响。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649992107&idx=1&sn=6442aea746cc4ed35f09d98be81acf1c" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">四大利好共振,港股科技或迎来关注良机?</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#AI</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">港股科技板块在美联储降息改善流动性、AI资本开支扩张、估值优势及强劲盈利预期四大因素共振下,或迎来投资机会,相关ETF具备配置价值。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 考虑配置港股科技主题ETF(如513160)以捕捉AI时代下中国科技股的成长红利和估值修复。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649992107&idx=2&sn=93218a3cd597de42bdb67344ac09358e" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">一图看懂"十五五规划"核心方向相关ETF</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">"十五五"规划将聚焦高水平科技自立自强和先进制造业,历史经验表明政策发布后科技板块通常表现优异,相关ETF是把握政策红利的理想工具。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 关注"十五五"规划细则出台,布局符合国家战略导向的高科技及先进制造领域主题ETF。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649992107&idx=5&sn=9f732cb3deaf812a012b3a78868bb02f" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">巨头超预期</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 调研纪要</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#存储芯片</span><span class="tag">#AI</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">光模块巨头Lumentum业绩超预期,AI+云需求远超供应,预示光通信行业景气度持续,上游芯片产能紧缺将推动价格上涨。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 密切关注800G/1.6T光模块及上游光芯片厂商,把握AI算力基础设施扩容带来的结构性投资机会。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzkwMjA4NTUyMg==&mid=2247551350&idx=1&sn=bb27ec517c976881b62950d7f0b15abd" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">美国缺电系列:铝在交易什么</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 调研纪要</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#AI</span><span class="tag">#数据中心</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">AI数据中心用电激增引发美国电力缺口,电解铝高耗能特性使其产能受威胁,供应约束将成为支撑铝价中期上涨的关键因素。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 考虑配置电解铝相关标的,尤其关注拥有稳定电力成本和产能优势的企业,把握由供应紧缩驱动的商品上涨周期。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzkwMjA4NTUyMg==&mid=2247551350&idx=2&sn=039f8bc86a28ef6bd931d0f54fbd03b8" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">三季度利润激增249%,拐点已至?融捷股份的资源禀赋与转型挑战</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">融捷股份三季度净利润大幅增长预示业绩拐点,公司核心甲基卡锂矿资源优势突出,正加速向锂电材料加工转型以应对行业周期波动。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 关注融捷股份锂电材料项目建设进展及锂价走势,评估其在新能源产业链中从资源端向加工端转型的效果。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649992107&idx=3&sn=1baa0ace9a130ba469fab37bbc5d85cc" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">冲刺港股IPO!BMS合作新贵!这家创新药企业即将爆发?</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 蹊涯学习室</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">百利天恒凭借其重磅创新药BL-B01D1的授权合作及即将上市,有望从仿制药企业成功转型为创新药龙头,具备业绩爆发潜力。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 关注公司核心产品上市进度和海外商业化进展,评估其创新药管线对长期业绩和估值增长的驱动作用。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MjM5MTk5Mzk3MA==&mid=2449127408&idx=1&sn=ddd495bd3b5434e07d2617ce5c3d9273" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">伊之密:注塑压铸,从从容容</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">伊之密作为中国塑机行业龙头,前三季度营收和净利润稳健增长,凭借注塑机和压铸机双轮驱动,展现出良好的经营质量和市场竞争力。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 关注伊之密等高端装备制造企业在产业升级和全球市场扩张中的表现,寻找行业龙头的投资价值。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649992107&idx=4&sn=8304f0c9dff97e71495d0ad5533e4e06" class="read-more">阅读原文</a>
+    </div>
+</div>
+    </div>
+</body>
+</html>

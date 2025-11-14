@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蹊涯AI：公众号日报</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .header .date {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .article-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .article-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+            border-color: #3498db;
+        }
+
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .article-title {
+            font-size: 19px;
+            font-weight: 600;
+            color: #2c3e50;
+            flex: 1;
+            margin-right: 15px;
+            line-height: 1.4;
+            transition: color 0.2s;
+        }
+
+        .article-card:hover .article-title {
+            color: #3498db;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            color: #7f8c8d;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #ecf0f1;
+            color: #555;
+            padding: 4px 12px;
+            border-radius: 14px;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .article-card:hover .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .info-section {
+            background: #fafafa;
+            padding: 14px 16px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+
+        .info-section.summary {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+
+        .article-card:hover .info-section.summary {
+            background: #bbdefb;
+        }
+
+        .info-section.action {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .article-card:hover .info-section.action {
+            background: #ffe0b2;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-label .emoji {
+            font-size: 16px;
+        }
+
+        .info-text {
+            color: #444;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .read-more:hover {
+            color: #2980b9;
+            transform: translateX(4px);
+        }
+
+        .read-more::after {
+            content: "→";
+        }
+
+        @media (max-width: 768px) {
+            .article-card {
+                padding: 18px;
+            }
+
+            .article-title {
+                font-size: 17px;
+            }
+
+            .info-label {
+                font-size: 11px;
+            }
+
+            .info-text {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>📰 蹊涯AI：公众号日报</h1>
+            <div class="date">2025年11月4日 星期二</div>
+        </div>
+    </div>
+
+    <div class="container">
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">如果你选错了风格,一定会再次被指数吊打!</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 大佳的投资笔记</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">公募基金业绩基准新规加速了市场风格从成长转向价值的趋势,预计11月份价值,特别是央企、高分红权重的大盘价值股将持续占优,有望推动上证指数重回4000点。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 关注高分红、央企背景的大盘价值股的配置机会;[风险] 警惕过度集中在成长板块可能面临的风格错配风险。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzI4MDMyNDIxMQ==&mid=2247505317&idx=1&sn=fc39eefc1db0d53d6f1cc837101f6180" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">"十五五"规划敲定投资方向,这类ETF迎来高光时刻!</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">"十五五"规划明确"科技自立自强"为核心,重点攻关集成电路、工业母机等硬科技领域,科技类ETF凭借其分散风险、低成本等特点,是布局政策红利的理想工具。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 长期关注硬科技赛道及相关宽基或科创债ETF,以把握政策驱动的结构性牛市机遇。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991990&idx=5&sn=8109456040ec705e447551ba2b196f07" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">想要跟踪社保买基金,看这篇文章就够了!社保基金三季报全景透视来临!</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">全国社保基金Q3持仓市值增长26.8%,信息技术、材料、能源等高成长板块配置显著提升,金融板块保持稳定,其布局为市场提供了重要参考。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 参考社保基金的均衡配置思路,关注工业－电气部件与设备、信息技术－电子元件、材料－化肥与农用化工等高景气赛道的相关主题ETF。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991990&idx=6&sn=441b9d03cb05a0b6476f907ab25c0081" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">AI Agent:如何从0到1打造可盈利智能体团队</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 蹊涯学习室</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#AI</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">此课程聚焦AI Agent实战,旨在帮助学员从0到1构建可盈利智能体团队,实现业务自动化、工作流重构及AI产品商业化。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 积极学习AI Agent开发与商业化技能,抢占人工智能时代的先机与核心竞争力。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MjM5MTk5Mzk3MA==&mid=2449127371&idx=1&sn=d3e472d7a5349512694bc51ad8259e45" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">减重需求旺盛!站在GLP-1风口上的"卖铲人"圣诺生物</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">圣诺生物作为GLP-1多肽药物CDMO服务商及仿制药原料药供应商,受益于全球减重市场旺盛需求,Q3净利润预计大幅增长100%至145%。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[机会] 关注GLP-1产业链上游"卖铲人"公司的业绩增长潜力和市场地位。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991990&idx=1&sn=0c684e2f22a46646ecde16dbbae2873c" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">央视溯源"神鲜奶":看蒙牛如何"领鲜"全世界?</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">蒙牛鲜奶业务(每日鲜语)在市场竞争加剧下逆势实现双位数增长,通过全链高标准品质把控和多维创新(风味、功能性产品),持续巩固其在高端鲜奶市场的领导地位。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 关注消费升级背景下,乳业龙头企业在高端化、功能化和品牌建设方面的创新策略,及其对市场份额和盈利能力的积极影响。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991990&idx=2&sn=33c8e353f47236cf63bf8019c60d5b4e" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">浙商银行三季报出炉:规模适度、质量优先的高质量发展之路</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">浙商银行2025年Q3财报显示,在行业承压背景下,其总资产规模适度增长,净利润保持稳健,不良贷款率稳中有降,通过优化资产负债结构、强化风控和深耕实体经济,走高质量发展之路。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[跟进] 关注银行业在息差收窄背景下,通过结构调整、风险管理及服务实体经济,实现稳健经营和持续增长的银行股。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991990&idx=3&sn=99daff23e2f12e252d3b8428b7e773c1" class="read-more">阅读原文</a>
+    </div>
+</div>
+    <div class="article-card">
+    <div class="article-header">
+        <div class="article-title">老国企迎来新概念,兰石重装能否焕发"第二春"?</div>
+    </div>
+    <div class="article-meta">
+        <span>📱 市值风云</span>
+    </div>
+    <div class="tags">
+        <span class="tag">#行业动态</span>
+    </div>
+    <div class="info-section summary">
+        <div class="info-label">
+            <span class="emoji">📝</span>
+            <span>核心观点</span>
+        </div>
+        <div class="info-text">兰石重装作为老牌国企积极转型布局核能、氢能等新能源装备,但2025年前三季度营收大增26.9%的同时,归母净利润却暴跌88.3%,扣非后净利润为负,显示转型期的成本压力巨大。</div>
+    </div>
+    <div class="info-section action">
+        <div class="info-label">
+            <span class="emoji">🎯</span>
+            <span>行动指引</span>
+        </div>
+        <div class="info-text">[风险] 警惕传统重工业企业转型新赛道初期,可能面临的巨额研发投入和盈利能力承压的风险,需关注其新业务变现能力。</div>
+    </div>
+    <div class="card-footer">
+        <a href="https://mp.weixin.qq.com/s?__biz=MzAxMjEyOTYwMQ==&mid=2649991990&idx=4&sn=9ec5b940afd60499a45a759277ea8750" class="read-more">阅读原文</a>
+    </div>
+</div>
+    </div>
+</body>
+</html>

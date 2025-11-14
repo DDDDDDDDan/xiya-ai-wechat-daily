@@ -1,0 +1,48 @@
+[build]
+  # 构建命令：运行 Python 脚本生成索引页
+  command = "python3 generate_index.py"
+
+  # 发布目录：scr 文件夹
+  publish = "scr"
+
+  # 忽略构建（可选）
+  # ignore = "git diff --quiet HEAD^ HEAD ."
+
+[build.environment]
+  # Python 版本
+  PYTHON_VERSION = "3.8"
+
+# 重定向和重写规则
+[[redirects]]
+  # SPA 路由支持（可选）
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+# 自定义头部（可选）
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# 表单处理（如果需要）
+# [build.processing]
+#   skip_processing = false
+
+# 插件（可选）
+# [[plugins]]
+#   package = "@netlify/plugin-lighthouse"
