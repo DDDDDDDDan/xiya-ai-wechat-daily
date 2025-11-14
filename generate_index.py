@@ -17,13 +17,28 @@ def parse_html_file(filepath):
         with open(filepath, 'r', encoding='utf-8') as f:
             content = f.read()
 
-        # 提取日期
-        date_match = re.search(r'<div class="date">(\d{4})年(\d{1,2})月(\d{1,2})日\s+星期([一二三四五六日])</div>', content)
-        if not date_match:
-            return None
+        # 首先尝试从文件名中提取日期
+        filename = os.path.basename(filepath)
+        filename_date_match = re.match(r'(\d{4})-(\d{1,2})-(\d{1,2})\.html', filename)
 
-        year, month, day, weekday = date_match.groups()
-        date_str = f"{year}年{month}月{day}日"
+        if filename_date_match:
+            year, month, day = filename_date_match.groups()
+            date_str = f"{year}年{month}月{day}日"
+            # 计算星期几
+            try:
+                date_obj = datetime(int(year), int(month), int(day))
+                weekday_map = {0: '一', 1: '二', 2: '三', 3: '四', 4: '五', 5: '六', 6: '日'}
+                weekday = weekday_map[date_obj.weekday()]
+            except:
+                weekday = '一'
+        else:
+            # 如果文件名不匹配，尝试从内容中提取日期（兼容旧格式）
+            date_match = re.search(r'<div class="date">(\d{4})年(\d{1,2})月(\d{1,2})日\s+星期([一二三四五六日])</div>', content)
+            if not date_match:
+                return None
+
+            year, month, day, weekday = date_match.groups()
+            date_str = f"{year}年{month}月{day}日"
 
         # 统计文章数
         article_count = len(re.findall(r'<div class="article-card">', content))
@@ -119,11 +134,24 @@ def generate_index_html(dailies):
         }}
 
         .header {{
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            background: #2c3e50;
             color: white;
-            padding: 60px 0 40px;
+            padding: 60px 0 50px;
             margin-bottom: 40px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }}
+
+        .header::before {{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(52,152,219,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,101.3C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.3;
         }}
 
         .header-content {{
@@ -131,6 +159,8 @@ def generate_index_html(dailies):
             margin: 0 auto;
             padding: 0 20px;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }}
 
         .header h1 {{
@@ -144,6 +174,65 @@ def generate_index_html(dailies):
             font-size: 16px;
             opacity: 0.9;
             font-weight: 300;
+            margin-bottom: 40px;
+        }}
+
+        .header-title {{
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            margin-top: 40px;
+        }}
+
+        .header-description {{
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }}
+
+        .features-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 36px;
+        }}
+
+        .feature-card {{
+            background: rgba(52, 152, 219, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }}
+
+        .feature-card:hover {{
+            background: rgba(52, 152, 219, 0.25);
+            transform: translateY(-4px);
+            border-color: rgba(52, 152, 219, 0.5);
+        }}
+
+        .feature-icon {{
+            font-size: 36px;
+            margin-bottom: 12px;
+        }}
+
+        .feature-title {{
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: white;
+        }}
+
+        .feature-desc {{
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
         }}
 
         .container {{
@@ -312,53 +401,144 @@ def generate_index_html(dailies):
             font-size: 18px;
         }}
 
-        .stats-bar {{
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 40px;
-            display: flex;
-            justify-content: space-around;
-            gap: 20px;
-            flex-wrap: wrap;
-        }}
-
-        .stat-item {{
-            text-align: center;
-            flex: 1;
-            min-width: 120px;
-        }}
-
-        .stat-number {{
-            font-size: 32px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 8px;
-        }}
-
-        .stat-label {{
-            color: #7f8c8d;
-            font-size: 14px;
-        }}
-
         .footer {{
-            text-align: center;
-            padding: 40px 20px;
-            color: #95a5a6;
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 50px 20px 30px;
+            margin-top: 60px;
+        }}
+
+        .footer-content {{
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }}
+
+        .footer-left {{
+            text-align: left;
+        }}
+
+        .footer-title {{
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #3498db;
+        }}
+
+        .footer-description {{
             font-size: 14px;
+            line-height: 1.8;
+            color: #bdc3c7;
+            margin-bottom: 20px;
+        }}
+
+        .creator-info {{
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }}
+
+        .creator-avatar {{
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }}
+
+        .creator-details {{
+            flex: 1;
+        }}
+
+        .creator-name {{
+            font-size: 16px;
+            font-weight: 600;
+            color: #ecf0f1;
+            margin-bottom: 4px;
+        }}
+
+        .creator-role {{
+            font-size: 13px;
+            color: #95a5a6;
+        }}
+
+        .footer-right {{
+            text-align: center;
+        }}
+
+        .qrcode-container {{
+            background: white;
+            padding: 0;
+            border-radius: 12px;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }}
+
+        .qrcode-container img {{
+            display: block;
+            width: 160px;
+            height: 160px;
+        }}
+
+        .qrcode-label {{
+            margin-top: 12px;
+            font-size: 14px;
+            color: #bdc3c7;
+            font-weight: 500;
+        }}
+
+        .copyright {{
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #95a5a6;
+            font-size: 13px;
         }}
 
         @media (max-width: 768px) {{
             .header {{
-                padding: 40px 0 30px;
+                padding: 40px 0 40px;
             }}
 
             .header h1 {{
                 font-size: 28px;
+            }}
+
+            .header-title {{
+                font-size: 24px;
+            }}
+
+            .header-description {{
+                font-size: 15px;
+            }}
+
+            .features-grid {{
+                grid-template-columns: 1fr;
+            }}
+
+            .footer-content {{
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }}
+
+            .footer-left {{
+                text-align: center;
+            }}
+
+            .creator-info {{
+                justify-content: center;
             }}
 
             .daily-card {{
@@ -368,14 +548,6 @@ def generate_index_html(dailies):
             .daily-date {{
                 font-size: 20px;
             }}
-
-            .stats-bar {{
-                padding: 20px;
-            }}
-
-            .stat-number {{
-                font-size: 24px;
-            }}
         }}
     </style>
 </head>
@@ -383,33 +555,68 @@ def generate_index_html(dailies):
     <div class="header">
         <div class="header-content">
             <h1>📰 蹊涯AI：公众号日报</h1>
-            <div class="subtitle">精选优质公众号文章，每日为您呈现</div>
+            <div class="subtitle">专注金融投资 · AI智能总结 · 每日精选财经深度</div>
+
+            <div class="header-title">您的金融投资智能助手</div>
+            <div class="header-description">
+                <strong>蹊涯AI日报</strong>专注于金融投资与产业研究领域，
+                运用AI技术从顶级财经公众号中精选深度内容，涵盖产业链分析、公司研报、行业动态、投资机会等核心信息。
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <div class="feature-title">专业财经聚合</div>
+                    <div class="feature-desc">精选市值风云、调研纪要、思想钢印等头部财经公众号，聚焦新能源、AI、半导体等热门赛道</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <div class="feature-title">AI智能总结</div>
+                    <div class="feature-desc">每篇文章自动提炼核心观点和投资逻辑，附带明确的行动指引，10秒看懂一篇深度研报</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <div class="feature-title">每日定时推送</div>
+                    <div class="feature-desc">工作日持续更新，不错过市场热点与投资机会，让您的投资决策始终领先一步</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="container">
-        <div class="stats-bar">
-            <div class="stat-item">
-                <div class="stat-number">{total_issues}</div>
-                <div class="stat-label">已发布期数</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">{total_articles}</div>
-                <div class="stat-label">精选文章</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">持续更新</div>
-                <div class="stat-label">更新状态</div>
-            </div>
-        </div>
-
-        <div class="section-title">最新日报</div>
+        <div class="section-title">所有日报</div>
 
 {cards_section}
     </div>
 
     <div class="footer">
-        <p>蹊涯AI：公众号日报 © 2025 - 精选优质内容，分享知识价值</p>
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-title">蹊涯AI：公众号日报</div>
+                <div class="footer-description">
+                    聚焦金融投资与产业研究，每日精选顶级财经公众号深度内容。
+                    覆盖AI、新能源、半导体、医药生物等核心投资领域，为投资者提供专业决策参考。
+                    <br><br>
+                    立即扫码关注「蹊涯学习室」公众号，第一时间获取每日投资情报，把握市场先机！
+                </div>
+                <div class="creator-info">
+                    <div class="creator-avatar">D</div>
+                    <div class="creator-details">
+                        <div class="creator-name">Dan</div>
+                        <div class="creator-role">产品策划与开发</div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-right">
+                <div class="qrcode-container">
+                    <img src="https://github.com/DDDDDDDDan/xiya-ai-wechat-daily/blob/main/%E8%B9%8A%E6%B6%AF%E5%AD%A6%E4%B9%A0%E5%AE%A4%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg?raw=true" alt="蹊涯学习室公众号">
+                </div>
+                <div class="qrcode-label">扫码关注公众号</div>
+            </div>
+        </div>
+        <div class="copyright">
+            蹊涯AI：公众号日报 © 2025 - 精选优质内容，分享知识价值 | Made with ❤️ by Dan
+        </div>
     </div>
 </body>
 </html>'''

@@ -80,6 +80,47 @@
             margin-right: auto;
         }
 
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 36px;
+        }
+
+        .feature-card {
+            background: rgba(52, 152, 219, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
+
+        .feature-card:hover {
+            background: rgba(52, 152, 219, 0.25);
+            transform: translateY(-4px);
+            border-color: rgba(52, 152, 219, 0.5);
+        }
+
+        .feature-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -244,47 +285,6 @@
         .read-btn::after {
             content: "→";
             font-size: 18px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-            margin-top: 36px;
-        }
-
-        .feature-card {
-            background: rgba(52, 152, 219, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 24px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(52, 152, 219, 0.3);
-        }
-
-        .feature-card:hover {
-            background: rgba(52, 152, 219, 0.25);
-            transform: translateY(-4px);
-            border-color: rgba(52, 152, 219, 0.5);
-        }
-
-        .feature-icon {
-            font-size: 36px;
-            margin-bottom: 12px;
-        }
-
-        .feature-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: white;
-        }
-
-        .feature-desc {
-            font-size: 14px;
-            opacity: 0.9;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.9);
         }
 
         .footer {
@@ -472,6 +472,58 @@
     <div class="container">
         <div class="section-title">所有日报</div>
 
+        <a href="2025-11-14.html" class="daily-card">
+            <div class="daily-header">
+                <div class="daily-date">
+                    <span class="icon">📅</span>
+                    <span>2025年11月14日</span>
+                </div>
+                <div class="daily-weekday">星期五</div>
+            </div>
+            <div class="daily-meta">
+                <div class="meta-item">
+                    <span class="emoji">📝</span>
+                    <span>共 <span class="number">5</span> 篇文章</span>
+                </div>
+                <div class="meta-item">
+                    <span class="emoji">🏢</span>
+                    <span>2 个公众号</span>
+                </div>
+            </div>
+            <div class="daily-preview">
+                <span class="preview-tag">📱 蹊涯学习室</span><span class="preview-tag">📱 市值风云</span>
+            </div>
+            <div class="daily-footer">
+                <span class="read-btn">查看本期日报</span>
+            </div>
+        </a>
+
+        <a href="2025-11-13.html" class="daily-card">
+            <div class="daily-header">
+                <div class="daily-date">
+                    <span class="icon">📅</span>
+                    <span>2025年11月13日</span>
+                </div>
+                <div class="daily-weekday">星期四</div>
+            </div>
+            <div class="daily-meta">
+                <div class="meta-item">
+                    <span class="emoji">📝</span>
+                    <span>共 <span class="number">5</span> 篇文章</span>
+                </div>
+                <div class="meta-item">
+                    <span class="emoji">🏢</span>
+                    <span>3 个公众号</span>
+                </div>
+            </div>
+            <div class="daily-preview">
+                <span class="preview-tag">📱 蹊涯学习室</span><span class="preview-tag">📱 180K</span><span class="preview-tag">📱 市值风云</span>
+            </div>
+            <div class="daily-footer">
+                <span class="read-btn">查看本期日报</span>
+            </div>
+        </a>
+
         <a href="2025-11-12.html" class="daily-card">
             <div class="daily-header">
                 <div class="daily-date">
@@ -517,7 +569,7 @@
                 </div>
             </div>
             <div class="daily-preview">
-                <span class="preview-tag">📱 调研纪要</span><span class="preview-tag">📱 思想钢印</span><span class="preview-tag">📱 橙子不糊涂</span>
+                <span class="preview-tag">📱 调研纪要</span><span class="preview-tag">📱 橙子不糊涂</span><span class="preview-tag">📱 思想钢印</span>
             </div>
             <div class="daily-footer">
                 <span class="read-btn">查看本期日报</span>
@@ -528,7 +580,7 @@
             <div class="daily-header">
                 <div class="daily-date">
                     <span class="icon">📅</span>
-                    <span>2025年11月9日</span>
+                    <span>2025年11月09日</span>
                 </div>
                 <div class="daily-weekday">星期日</div>
             </div>
@@ -554,7 +606,7 @@
             <div class="daily-header">
                 <div class="daily-date">
                     <span class="icon">📅</span>
-                    <span>2025年11月7日</span>
+                    <span>2025年11月07日</span>
                 </div>
                 <div class="daily-weekday">星期五</div>
             </div>
@@ -569,7 +621,7 @@
                 </div>
             </div>
             <div class="daily-preview">
-                <span class="preview-tag">📱 蹊涯学习室</span><span class="preview-tag">📱 调研纪要</span><span class="preview-tag">📱 市值风云</span>
+                <span class="preview-tag">📱 市值风云</span><span class="preview-tag">📱 调研纪要</span><span class="preview-tag">📱 蹊涯学习室</span>
             </div>
             <div class="daily-footer">
                 <span class="read-btn">查看本期日报</span>
@@ -580,7 +632,7 @@
             <div class="daily-header">
                 <div class="daily-date">
                     <span class="icon">📅</span>
-                    <span>2025年11月6日</span>
+                    <span>2025年11月06日</span>
                 </div>
                 <div class="daily-weekday">星期四</div>
             </div>
@@ -595,7 +647,7 @@
                 </div>
             </div>
             <div class="daily-preview">
-                <span class="preview-tag">📱 蹊涯学习室</span><span class="preview-tag">📱 调研纪要</span><span class="preview-tag">📱 橙子不糊涂</span><span class="preview-tag">📱 市值风云</span><span class="preview-tag">📱 思想钢印</span><span class="preview-tag">📱 阿基米德Biotech</span>
+                <span class="preview-tag">📱 调研纪要</span><span class="preview-tag">📱 橙子不糊涂</span><span class="preview-tag">📱 市值风云</span><span class="preview-tag">📱 思想钢印</span><span class="preview-tag">📱 阿基米德Biotech</span><span class="preview-tag">📱 蹊涯学习室</span><span class="preview-tag">📱 培风客</span>
             </div>
             <div class="daily-footer">
                 <span class="read-btn">查看本期日报</span>
@@ -606,22 +658,22 @@
             <div class="daily-header">
                 <div class="daily-date">
                     <span class="icon">📅</span>
-                    <span>2025年11月5日</span>
+                    <span>2025年11月05日</span>
                 </div>
                 <div class="daily-weekday">星期三</div>
             </div>
             <div class="daily-meta">
                 <div class="meta-item">
                     <span class="emoji">📝</span>
-                    <span>共 <span class="number">6</span> 篇文章</span>
+                    <span>共 <span class="number">5</span> 篇文章</span>
                 </div>
                 <div class="meta-item">
                     <span class="emoji">🏢</span>
-                    <span>3 个公众号</span>
+                    <span>4 个公众号</span>
                 </div>
             </div>
             <div class="daily-preview">
-                <span class="preview-tag">📱 蹊涯学习室</span><span class="preview-tag">📱 调研纪要</span><span class="preview-tag">📱 大佳的投资笔记</span><span class="preview-tag">📱 市值风云</span>
+                <span class="preview-tag">📱 大佳的投资笔记</span><span class="preview-tag">📱 蹊涯学习室</span><span class="preview-tag">📱 市值风云</span><span class="preview-tag">📱 调研纪要</span>
             </div>
             <div class="daily-footer">
                 <span class="read-btn">查看本期日报</span>
@@ -632,7 +684,7 @@
             <div class="daily-header">
                 <div class="daily-date">
                     <span class="icon">📅</span>
-                    <span>2025年11月4日</span>
+                    <span>2025年11月04日</span>
                 </div>
                 <div class="daily-weekday">星期二</div>
             </div>
@@ -647,7 +699,7 @@
                 </div>
             </div>
             <div class="daily-preview">
-                <span class="preview-tag">📱 蹊涯学习室</span><span class="preview-tag">📱 大佳的投资笔记</span><span class="preview-tag">📱 市值风云</span>
+                <span class="preview-tag">📱 大佳的投资笔记</span><span class="preview-tag">📱 市值风云</span><span class="preview-tag">📱 蹊涯学习室</span>
             </div>
             <div class="daily-footer">
                 <span class="read-btn">查看本期日报</span>
@@ -658,7 +710,7 @@
             <div class="daily-header">
                 <div class="daily-date">
                     <span class="icon">📅</span>
-                    <span>2025年11月3日</span>
+                    <span>2025年11月03日</span>
                 </div>
                 <div class="daily-weekday">星期一</div>
             </div>
@@ -669,7 +721,7 @@
                 </div>
                 <div class="meta-item">
                     <span class="emoji">🏢</span>
-                    <span>5 个公众号</span>
+                    <span>6 个公众号</span>
                 </div>
             </div>
             <div class="daily-preview">
@@ -699,7 +751,7 @@
                 </div>
             </div>
             <div class="daily-preview">
-                <span class="preview-tag">📱 蹊涯学习室</span><span class="preview-tag">📱 大佳的投资笔记</span><span class="preview-tag">📱 调研纪要</span><span class="preview-tag">📱 培风客</span><span class="preview-tag">📱 市值风云</span>
+                <span class="preview-tag">📱 大佳的投资笔记</span><span class="preview-tag">📱 培风客</span><span class="preview-tag">📱 调研纪要</span><span class="preview-tag">📱 市值风云</span><span class="preview-tag">📱 蹊涯学习室</span>
             </div>
             <div class="daily-footer">
                 <span class="read-btn">查看本期日报</span>
@@ -717,7 +769,7 @@
             <div class="daily-meta">
                 <div class="meta-item">
                     <span class="emoji">📝</span>
-                    <span>共 <span class="number">8</span> 篇文章</span>
+                    <span>共 <span class="number">11</span> 篇文章</span>
                 </div>
                 <div class="meta-item">
                     <span class="emoji">🏢</span>
@@ -725,7 +777,7 @@
                 </div>
             </div>
             <div class="daily-preview">
-                <span class="preview-tag">📱 大佳的投资笔记</span><span class="preview-tag">📱 调研纪要</span><span class="preview-tag">📱 橙子不糊涂</span><span class="preview-tag">📱 思想钢印</span><span class="preview-tag">📱 培风客</span><span class="preview-tag">📱 市值风云</span>
+                <span class="preview-tag">📱 大佳的投资笔记</span><span class="preview-tag">📱 思想钢印</span><span class="preview-tag">📱 培风客</span><span class="preview-tag">📱 调研纪要</span><span class="preview-tag">📱 橙子不糊涂</span><span class="preview-tag">📱 市值风云</span>
             </div>
             <div class="daily-footer">
                 <span class="read-btn">查看本期日报</span>
@@ -783,7 +835,6 @@
                 <span class="read-btn">查看本期日报</span>
             </div>
         </a>
-
     </div>
 
     <div class="footer">
