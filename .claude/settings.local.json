@@ -5,7 +5,11 @@
       "Bash(mkdir:*)",
       "Bash(python:*)",
       "Bash(git init:*)",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "mcp__github__get_me",
+      "mcp__github__create_repository",
+      "Bash(git remote set-url:*)",
+      "mcp__github__get_file_contents"
     ]
   },
   "enableAllProjectMcpServers": true,
