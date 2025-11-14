@@ -102,7 +102,7 @@ def generate_index_html(dailies):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>公众号日报 - 首页</title>
+    <title>蹊涯AI：公众号日报 - 首页</title>
     <style>
         * {{
             margin: 0;
@@ -382,7 +382,7 @@ def generate_index_html(dailies):
 <body>
     <div class="header">
         <div class="header-content">
-            <h1>📰 公众号日报</h1>
+            <h1>📰 蹊涯AI：公众号日报</h1>
             <div class="subtitle">精选优质公众号文章，每日为您呈现</div>
         </div>
     </div>
@@ -409,7 +409,7 @@ def generate_index_html(dailies):
     </div>
 
     <div class="footer">
-        <p>公众号日报 © 2025 - 精选优质内容，分享知识价值</p>
+        <p>蹊涯AI：公众号日报 © 2025 - 精选优质内容，分享知识价值</p>
     </div>
 </body>
 </html>'''
@@ -460,7 +460,7 @@ def main():
     html_content = generate_index_html(dailies)
 
     # 写入文件
-    index_path = scr_dir / 'index.html'
+    index_path = src_dir / 'index.html'
     with open(index_path, 'w', encoding='utf-8') as f:
         f.write(html_content)
 
